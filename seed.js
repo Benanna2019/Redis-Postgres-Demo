@@ -1,5 +1,6 @@
 const fs = require("fs");
 const psqlClient = require("./psql.js");
+const pg = require("pg");
 require("dotenv").config();
 
 const postToDatabase = async () => {
@@ -9,8 +10,23 @@ const postToDatabase = async () => {
     const result = await psqlClient.query(seedQuery, (err, res) => {
       // console.log(err, res)
       console.log("Seeding Completed!");
-      psqlClient.end();
     });
+    psqlClient.end();
+  }
+
+  if (process.env.NODE_ENV === "production" && process.env.DATABASEURL) {
+    pg.defaults.ssl = { rejectUnauthorized: false };
+    const seedQuery = fs.readFileSync("./seed.data.sql", {
+      encoding: "utf8",
+    });
+    psqlClient.connect();
+    const result = await psqlClient.query(seedQuery, (err, res) => {
+      if (err) {
+        console.log(err, err.message);
+      }
+      console.log(res);
+    });
+    psqlClient.end();
   }
 };
 
