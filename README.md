@@ -23,3 +23,5 @@ The database has a single table:
 `curl -X POST localhost:8080/clear_cache` clears the cache.
 
 # Redis-Postgres-Demo
+
+For this app when it is deployed, just replace localhost:8080 with your deployment url
