@@ -20,29 +20,21 @@ app.get("/countries", async (req, res) => {
       data = await queryDatabase();
       await writeCache(data);
       source = "database";
-      console.log("data came from the db and was sent to the cache", source);
+      console.log(source);
       console.log(data);
     }
     res.status(200).send({ source, data });
   } catch (e) {
-    res
-      .status(500)
-      .send(
-        `<h1>There was an error loading this route, error: ${e.message} </h1>`
-      );
+    res.status(500).send(e.message);
   }
 });
 
 app.post("/clear_cache", async (req, res) => {
   try {
     await clearCache();
-    res.status(200).send(`<h1>You successfully cleared the cache</h1>`);
+    res.status(200).send("OK");
   } catch (e) {
-    res
-      .status(500)
-      .send(
-        `<h1>There was an error with your application</h1><br/><p>${e.message}</p>`
-      );
+    res.status(500).send(e.message);
   }
 });
 
