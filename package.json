@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "npm run seed && node index.js",
+    "start": "npm run seed && node ./index.js",
     "server": "npm run seed && nodemon index.js",
     "seed": "node ./seed.js"
   },
