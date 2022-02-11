@@ -1,9 +1,9 @@
 require("dotenv").config();
-
-const PORT = process.env.PORT || 8000;
+const cors = require("cors");
 
 const express = require("express");
 const app = new express();
+app.use(cors());
 
 const psqlClient = require("./psql.js");
 const redisClient = require("./redis.js");
@@ -38,7 +38,7 @@ app.post("/clear_cache", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => console.log(`listening on ${PORT}...`));
+app.listen(process.env.PORT || 8000, () => console.log(`listening on ...`));
 
 const queryDatabase = async () => {
   psqlClient.connect();
