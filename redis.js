@@ -10,7 +10,7 @@ const redisAuthString =
     : "";
 const redisClient = createClient({
   url: isProduction
-    ? process.env.REDIS_TLS_URL
+    ? process.env.REDIS_URL
     : `redis://${redisAuthString}${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`,
 });
 console.log(redisAuthString);
