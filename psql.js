@@ -1,2 +1,4 @@
 const { Client } = require("pg");
-module.exports = new Client();
+module.exports = new Client({
+  connectionString: process.env.DATABASE_URL,
+});
